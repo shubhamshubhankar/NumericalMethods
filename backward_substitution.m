@@ -1,16 +1,32 @@
 % Back substitution Implementation in Matlab for Upper Triangular matrix
 % Initializing the 3X3 matrix with the default values.
 
-A = [3 -1 2; 0 1 -5; 0 0 2];
-B = [4 -4 2];
-X = [0 0 0];
+% Open the input file
+fileID = fopen('input.txt','r');
+
+% Read the dimensions of the matrix A
+dims = fscanf(fileID,'%d %d',[1 2]);
+
+% Read the values and store them in a matrix A
+A = fscanf(fileID,'%d',[dims(1) dims(2)]);
+A = transpose(A);
+
+B = fscanf(fileID,'%d',[dims(1)]);
+
+% Close the file
+fclose(fileID);
+
+[numRows,numCols] = size(A);
+
+X = zeros(numRows,1);
+
 determinant = det(A);
 
 if determinant == 0
     fprintf("The system has no solutions\n");
 end
 
-[numRows,numCols] = size(A);
+
 
 %fprintf("numRows: %d, numCols: %d\n", numRows, numCols);
 
